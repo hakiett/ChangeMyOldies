@@ -9,7 +9,6 @@
 @end
 
 @interface NCNotificationNoContentView : UIView
-@property (nonatomic,retain) UILabel *ios10isabitch;
 -(void)layoutSubviews;
 @end
 
@@ -18,7 +17,7 @@
 #define kSettingsPath @"/var/mobile/Library/Preferences/com.kaitouiet.changemyoldies.plist"
 
 static BOOL enabled;
-NSString *_Nonnull changeNotiTxt = @""; // just set it to nothing cz iOS 10 and iOS11 have different txts for their views
+static NSString *changeNotiTxt = @""; // just set it to nothing cz iOS 10 and iOS11 have different txts for their views
 
 %group iOS11
 
@@ -38,8 +37,7 @@ NSString *_Nonnull changeNotiTxt = @""; // just set it to nothing cz iOS 10 and 
 -(void)layoutSubviews {
   %orig;
   if (enabled) {
-  UILabel *ios10isabitch = MSHookIvar<UILabel *>(self,"_noNotificationsLabel");
-  ios10isabitch.text = [NSString stringWithFormat:@"%@", changeNotiTxt]; //since its a UILabel we change the text to the string we made above
+ MSHookIvar<UILabel *>(self,"_noNotificationsLabel").text = changeNotiTxt; //since its a UILabel we change the text to the string we made above
 }
 }
 %end
