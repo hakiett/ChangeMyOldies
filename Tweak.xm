@@ -16,7 +16,7 @@
 @end
 */
 static BOOL enabled;
-static NSString *changeNotiTxt = @"No Older Notifications"; // just set it to nothing cz iOS 10 and iOS11 have different txts for their views
+static NSString *changeNotiTxt = @""; // just set it to nothing cz some want it blank
 
 
 #define kIdentifier @"com.kaitouiet.changemyoldies"
