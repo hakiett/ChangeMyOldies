@@ -11,7 +11,7 @@
 
 /*
 @interface NCNotificationNoContentView : UIView
-@property (nonatomic,retain) UILabel *ios10isabitch;
+@property (nonatomic,retain) UILabel *ios10isapain;
 -(void)layoutSubviews;
 @end
 */
