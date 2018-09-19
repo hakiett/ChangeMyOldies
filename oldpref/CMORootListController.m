@@ -2,7 +2,7 @@
 #import <spawn.h>
 #import <AudioToolbox/AudioToolbox.h>
 
-@interface FFTRootListController : PSListController {
+@interface CMORootListController : PSListController {
 UILabel* _label;
 UILabel* underLabel;
 }
@@ -11,7 +11,7 @@ UILabel* underLabel;
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-@implementation FFTRootListController
+@implementation CMORootListController
 
 - (NSArray *)specifiers {
 	if (!_specifiers) {
@@ -24,12 +24,12 @@ UILabel* underLabel;
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
-	// use icon instead of title text
-	//UIImage *icon = [UIImage imageNamed:@"icon.png" inBundle:self.bundle];
-	//self.navigationItem.titleView = [[UIImageView alloc] initWithImage:icon];
+	//use icon instead of title text
+	UIImage *icon = [UIImage imageNamed:@"icon.png" inBundle:self.bundle];
+	self.navigationItem.titleView = [[UIImageView alloc] initWithImage:icon];
 
 
-	// add twitter button to the navbar (idk why its weird in this tweak so im gonna just comment it out)
+	//add twitter button to the navbar (idk why its weird in this tweak so im gonna just comment it out)
 	//UIImage *birdImage = [UIImage imageNamed:@"twitter.png" inBundle:self.bundle];
 	//UIBarButtonItem *birdButton = [[UIBarButtonItem alloc] initWithImage:birdImage style:UIBarButtonItemStylePlain target:self action:@selector(openTwitter)];
 	//birdButton.imageInsets = (UIEdgeInsets){2, 0, 0, 0};
@@ -56,7 +56,7 @@ UILabel* underLabel;
 		underLabel = [[UILabel alloc] initWithFrame:botFrame];
 		[underLabel setNumberOfLines:1];
 		underLabel.font = [UIFont fontWithName:@"GillSans-Light" size:12];
-		[underLabel setText:@"Change \"No Notifications Text\" On Notification Center!"];
+		[underLabel setText:@"Change \"No Older Notifications\" text to whatever you want!"];
 		[underLabel setBackgroundColor:[UIColor clearColor]];
 		underLabel.textColor = [UIColor grayColor];
 		underLabel.textAlignment = NSTextAlignmentCenter;
