@@ -87,5 +87,3 @@ static void reloadPrefs() {
   }
 
 //thanks Tonyk7🖤 for teaching me new things everyday:), was a good lesson of MSHookIvar
-
-//thanks Tonyk7🖤 for teaching me new things everyday:), was a good lesson of MSHookIvar
