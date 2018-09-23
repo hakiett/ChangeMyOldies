@@ -2,7 +2,6 @@
 
 @interface SBUILegibilityLabel : UIView
 @property (nonatomic,copy) NSString *string;
-@property (nonatomic,copy) UIColor * textColor;
 @end
 
 @interface NCNotificationListSectionRevealHintView : UIView
