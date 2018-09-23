@@ -10,8 +10,6 @@
 
 /*
 @interface NCNotificationNoContentView : UIView
-@property (nonatomic,retain) UILabel *ios10isapain;
--(void)layoutSubviews;
 @end
 */
 static BOOL enabled;
@@ -42,8 +40,7 @@ static NSString *changeNotiTxt = @""; // just set it to nothing cz some want it 
 -(void)layoutSubviews {
   %orig;
   if (enabled) {
-  UILabel *ios10isabitch = MSHookIvar<UILabel *>(self,"_noNotificationsLabel");
-  ios10isabitch.text = [NSString stringWithFormat:@"%@", changeNotiTxt]; //since its a UILabel we change the text to the string we made above
+  MSHookIvar<UILabel *>(self,"_noNotificationsLabel").text = changeNotiTxt; //since its a UILabel we change the text to the string we made above
 }
 }
 %end
