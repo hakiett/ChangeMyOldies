@@ -8,12 +8,11 @@
 - (void)_updateHintTitle;
 @end
 
-/*
+
 @interface NCNotificationNoContentView : UIView
-@property (nonatomic,retain) UILabel *ios10isapain;
--(void)layoutSubviews;
+//you dont have to declare -(void)layoutSubviews since that method is public / check UIView.h in UIKit
 @end
-*/
+
 static BOOL enabled;
 static NSString *changeNotiTxt = @""; // just set it to nothing cz some want it blank
 
@@ -22,33 +21,42 @@ static NSString *changeNotiTxt = @""; // just set it to nothing cz some want it 
 #define kSettingsChangedNotification (CFStringRef)@"com.kaitouiet.changemyoldies/ReloadPrefs"
 #define kSettingsPath @"/var/mobile/Library/Preferences/com.kaitouiet.changemyoldies.plist"
 
-//%group iOS11
+%group iOS11
 
 %hook NCNotificationListSectionRevealHintView
 - (void)_updateHintTitle {
     %orig; // returns original method if the tweak aint enabled
+    // %orig; here runs the original code then runs your code 
+    // if you put it in the end your code will run first then the original code 
+    // plus this doesn't return anythiny since the method return type is void 
     if (enabled) {
       [MSHookIvar<SBUILegibilityLabel *>(self, "_revealHintTitle") setString:changeNotiTxt];
 }
 }
 %end
 
-//%end
+%end
 
-/*
+
 %group iOS10
+
+static UILabel *ios10isabitch;
 
 %hook NCNotificationNoContentView
 -(void)layoutSubviews {
   %orig;
   if (enabled) {
-  UILabel *ios10isabitch = MSHookIvar<UILabel *>(self,"_noNotificationsLabel");
-  ios10isabitch.text = [NSString stringWithFormat:@"%@", changeNotiTxt]; //since its a UILabel we change the text to the string we made above
+  ios10isabitch = MSHookIvar<UILabel *>(self,"_noNotificationsLabel");
+  // when you say UILabel *ios10isabitch
+  //you're creating a new label instince each time layoutSubviews runs which runs two time every time you swipe the nc down or up
+  ios10isabitch.text = [NSString stringWithFormat:@"%@", changeNotiTxt]; // you can put changeNotiTxt rather than using stringWithFormat since its an NSString
+  //since its a UILabel we change the text to the string we made above
 }
 }
 %end
+
 %end
-*/
+
 
 static void reloadPrefs() {
 	CFPreferencesAppSynchronize((CFStringRef)kIdentifier);
@@ -74,14 +82,14 @@ static void reloadPrefs() {
 %ctor {
     reloadPrefs();
     CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)reloadPrefs, kSettingsChangedNotification, NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
-/*
-%init;
+
+//%init;
 
     if (%c(NCNotificationListSectionRevealHintView))  // if it has this class
         %init(iOS11); // then use the iOS11 group
     else
         %init(iOS10);
-*/
+
 
   }
 
