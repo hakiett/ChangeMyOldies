@@ -1,6 +1,8 @@
-export TARGET = iphone:9.2:9.2
+INSTALL_TARGET_PROCESSES = SpringBoard
 
 include $(THEOS)/makefiles/common.mk
+
+ARCHS = arm64 arm64e
 
 TWEAK_NAME = ChangeMyOldies
 ChangeMyOldies_FILES = Tweak.xm
