@@ -1,11 +1,12 @@
-//Copyright © 2018 Kiet Ha
+//Copyright © 2018-2019 Kiet Ha
 
 @interface SBUILegibilityLabel : UIView
 @property (nonatomic,copy) NSString *string;
 @end
 
 @interface NCNotificationListSectionRevealHintView : UIView
-- (void)_updateHintTitle;
+//- (void)_updateHintTitle;
+@property (nonatomic,retain) SBUILegibilityLabel * revealHintTitle;
 @end
 
 /*
@@ -23,11 +24,11 @@ static NSString *changeNotiTxt = @""; // just set it to nothing cz some want it 
 //%group iOS11
 
 %hook NCNotificationListSectionRevealHintView
-- (void)_updateHintTitle {
+- (void)didMoveToWindow {
     %orig; // returns original method if the tweak aint enabled
     if (enabled) {
-      [MSHookIvar<SBUILegibilityLabel *>(self, "_revealHintTitle") setString:changeNotiTxt];
-}
+        self.revealHintTitle.string = changeNotiTxt;
+    }
 }
 %end
 
@@ -82,4 +83,4 @@ static void reloadPrefs() {
 
   }
 
-//thanks Tonyk7🖤 for teaching me new things everyday:), was a good lesson of MSHookIvar
+//thanks Tonyk7🖤 for teaching me new things everyday:), was a good lesson of MSHookIvar when it started
